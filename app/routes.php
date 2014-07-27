@@ -25,6 +25,7 @@ Route::get('/signup',
     )
 );
 
+
 Route::post('/signup', 
     array(
         'before' => 'csrf', 
@@ -82,6 +83,17 @@ Route::post('/login',
         }
     )
 );
+
+
+Route::get('/logout', function() {
+
+    # Log out
+    Auth::logout();
+
+    # Send them to the homepage
+    return Redirect::to('/');
+
+});
 
 
 Route::get('/debug', function() {
