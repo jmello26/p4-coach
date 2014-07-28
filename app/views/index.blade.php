@@ -5,8 +5,8 @@
 @stop
 
 @section('body')
-	<div class="container theme-showcase" role="main">
-		<div class="jumbotron">
+	<div class="jumbotron">
+		<div class="container theme-showcase" role="main">
 			{{-- Clickable image to bring users back to this page --}}
 			<!-- <a href='/'>{{ HTML::image('/images/p3.png', 'Site Logo'); }}</a> -->
 			<h1>Life Coach, Inc.</h1>
