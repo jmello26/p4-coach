@@ -15,9 +15,12 @@ class CreateTasksTable extends Migration {
 		Schema::create('tasks', function($table) {
 
 			$table->increments('id');
-			$table->string('name')->unique();
-			$table->string('');
-			$table->string('');
+			$table->string('name');
+			$table->string('description');
+			$table->timestamp('duedate');
+			$table->boolean('complete');
+			$table->string('filename');
+			$table->binary('file');
 			$table->timestamps();
 
 		});
