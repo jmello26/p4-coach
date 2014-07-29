@@ -46,7 +46,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
 			@if(Auth::check())
-				<li><a href='/logout'>Log out {{ Auth::user()->email; }}</a></li>
+				<li><a href='/logout'>Log out {{ Auth::user()->username; }}</a></li>
 			@else 
 				<li><button class="btn btn-primary btn-md" data-toggle="modal" data-target="#loginModal">Log in</button></li>
 			@endif
@@ -70,8 +70,8 @@
 						<h4 class="modal-title">Log in</h4>
 					</div>
 					<div class="modal-body">
-						Email<br>	
-						{{ Form::text('email') }}<br><br>
+						Username<br>	
+						{{ Form::text('username') }}<br><br>
 
 						Password:<br>
 						{{ Form::password('password') }}<br><br>
