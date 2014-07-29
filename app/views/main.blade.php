@@ -48,8 +48,7 @@
 			@if(Auth::check())
 				<li><a href='/logout'>Log out {{ Auth::user()->email; }}</a></li>
 			@else 
-				<li><a href='/signup'>Sign up</a></li>
-				<li><a href='/login'>Log in</a></li>
+				<li><button class="btn btn-primary btn-md" data-toggle="modal" data-target="#loginModal">Log in</button></li>
 			@endif
           </ul>
         </div><!--/.nav-collapse -->
@@ -61,6 +60,30 @@
 
 
 	@yield('body')
+
+		<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+			{{ Form::open(array('url' => '/login')) }}
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title">Log in</h4>
+					</div>
+					<div class="modal-body">
+						Email<br>	
+						{{ Form::text('email') }}<br><br>
+
+						Password:<br>
+						{{ Form::password('password') }}<br><br>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						{{ Form::submit('Log in', array('class' => 'btn btn-primary')) }}
+					</div>
+				</div><!-- /.modal-content -->
+			{{ Form::close() }}
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 
 	
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
