@@ -32,9 +32,11 @@ Route::post('/signup',
         function() {
 
             $user = new User;
+			$user->username = Input::get('username');
+			$user->firstname = Input::get('firstname');
+			$user->lastname = Input::get('lastname');
             $user->email    = Input::get('email');
             $user->password = Hash::make(Input::get('password'));
-            $user->email    = Input::get('email');
 
             # Try to add the user 
             try {
@@ -48,7 +50,7 @@ Route::post('/signup',
             # Log the user in
             Auth::login($user);
 
-            return Redirect::to('/list')->with('flash_message', 'Welcome to Foobooks!');
+            return Redirect::to('/')->with('flash_message', 'Welcome '. Auth::$user->.$firstname . ' ' . Auth::$user->.$lastname .'!');
 
         }
     )
@@ -59,7 +61,7 @@ Route::get('/login',
     array(
         'before' => 'guest',
         function() {
-            return View::make('login');
+            return View::make('index');
         }
     )
 );
@@ -70,7 +72,7 @@ Route::post('/login',
         'before' => 'csrf', 
         function() {
 
-            $credentials = Input::only('email', 'password');
+            $credentials = Input::only('username', 'password');
 
             if (Auth::attempt($credentials, $remember = true)) {
                 return Redirect::intended('/')->with('flash_message', 'Welcome Back!');
@@ -79,7 +81,7 @@ Route::post('/login',
                 return Redirect::to('/login')->with('flash_message', 'Log in failed; please try again.');
             }
 
-            return Redirect::to('login');
+            return Redirect::to('home');
         }
     )
 );
