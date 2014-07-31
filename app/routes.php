@@ -50,7 +50,7 @@ Route::post('/signup',
             # Log the user in
             Auth::login($user);
 
-            return Redirect::to('/')->with('flash_message', 'Welcome '. Auth::$user->.$firstname . ' ' . Auth::$user->.$lastname .'!');
+            return Redirect::to('/')->with('flash_message', 'Welcome '. Auth::$user->$firstname . ' ' . Auth::$user->$lastname . '!');
 
         }
     )
