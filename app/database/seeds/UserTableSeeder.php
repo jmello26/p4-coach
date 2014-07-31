@@ -12,16 +12,7 @@ class UserTableSeeder extends Seeder {
 		# Disable FK constraints so that all rows can be deleted, even if there's an associated FK
 		DB::statement('SET FOREIGN_KEY_CHECKS=0'); 
 		DB::statement('TRUNCATE users');
-/*
-		$user = User::create(array(
-			'username' => 'client',
-			'usertype' => 'client',
-			'first_name' => 'Test',
-			'last_name' => 'Client',
-			'email' => 'client@no-such-domain.com',
-			'password' => Hash::make('test')
-		));
- */ 
+
 		$client = new User;
 		$client->username = 'client';
 		$client->usertype = 'client';
