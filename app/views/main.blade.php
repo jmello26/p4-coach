@@ -46,18 +46,15 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
 			@if(Auth::check())
-				<li><a href='/logout'>Log out {{ Auth::user()->username; }}</a></li>
+				<li><a href='/logout'>Log out {{ Auth::user()->firstname; }} {{ Auth::user()->lastname; }}</a></li>
 			@else 
-				<li><button class="btn btn-primary btn-md" data-toggle="modal" data-target="#loginModal">Log in</button></li>
+				<li><a href='/login'>Log in</a></li>
+				<!-- <li><button class="btn btn-primary btn-md" data-toggle="modal" data-target="#loginModal">Log in</button></li> -->
 			@endif
           </ul>
         </div><!--/.nav-collapse -->
       </div>
 	</div>
-	@if(Session::get('flash_message'))
-        <div class='flash-message'>{{ Session::get('flash_message') }}</div>
-    @endif
-
 
 	@yield('body')
 

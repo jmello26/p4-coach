@@ -16,6 +16,7 @@ Route::get('/', function()
 	return View::make('index');
 });
 
+/*
 Route::get('/signup',
     array(
         'before' => 'guest',
@@ -24,8 +25,8 @@ Route::get('/signup',
         }
     )
 );
-
-
+*/
+/*
 Route::post('/signup', 
     array(
         'before' => 'csrf', 
@@ -55,13 +56,13 @@ Route::post('/signup',
         }
     )
 );
-
+*/
 
 Route::get('/login',
     array(
         'before' => 'guest',
         function() {
-            return View::make('index');
+            return View::make('login');
         }
     )
 );
@@ -75,16 +76,30 @@ Route::post('/login',
             $credentials = Input::only('username', 'password');
 
             if (Auth::attempt($credentials, $remember = true)) {
-                return Redirect::intended('/')->with('flash_message', 'Welcome Back!');
+                return Redirect::intended('/home')->with('flash_message', 'Welcome Back!');
             }
             else {
-                return Redirect::to('/login')->with('flash_message', 'Log in failed; please try again.');
+                return Redirect::to('/login')->withInput()->with('flash_message', 'Log in failed; please try again.');
             }
 
-            return Redirect::to('/home');
+            return Redirect::to('/');
         }
     )
 );
+
+
+Route::get('/home', function() {
+
+	if (Auth::check()) {
+    # Send them to the homepage
+    //return Redirect::to('/home');
+		return View::make('home');
+	}
+	else {
+		return View::make('login');
+	}
+
+});
 
 
 Route::get('/logout', function() {
@@ -97,7 +112,7 @@ Route::get('/logout', function() {
 
 });
 
-
+/*
 Route::get('/seed', function() {
 
 		$client = new User;
@@ -121,7 +136,7 @@ Route::get('/seed', function() {
     return "Tables seeded";
 
 });
-
+*/
 
 
 Route::get('/debug', function() {
