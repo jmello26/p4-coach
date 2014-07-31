@@ -81,7 +81,7 @@ Route::post('/login',
                 return Redirect::to('/login')->with('flash_message', 'Log in failed; please try again.');
             }
 
-            return Redirect::to('home');
+            return Redirect::to('/home');
         }
     )
 );
@@ -96,6 +96,32 @@ Route::get('/logout', function() {
     return Redirect::to('/');
 
 });
+
+
+Route::get('/seed', function() {
+
+		$client = new User;
+		$client->username = 'client';
+		$client->usertype = 'client';
+		$client->firstname = 'Test';
+		$client->lastname = 'Client';
+		$client->email = 'client@no-such-domain.com';
+		$client->password = Hash::make('test');
+		$client->save();
+
+		$coach = new User;
+		$coach->username = 'coach';
+		$coach->usertype = 'coach';
+		$coach->firstname = 'Test';
+		$coach->lastname = 'Coach';
+		$coach->email = 'coach@p4-life-coach-inc.com';
+		$coach->password = Hash::make('test');
+		$coach->save();
+
+    return "Tables seeded";
+
+});
+
 
 
 Route::get('/debug', function() {
