@@ -22,23 +22,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var array
 	 */
 	protected $hidden = array('password', 'remember_token');
+	protected $guarded = array('id', 'created_at', 'updated_at');
 	
 	/**
 	 *
-	 * The attributes of a User
+	 * The relationship between a User and their Assignments
 	 *
-	 */
-
-	 public $username;
-	 public $firstname;
-	 public $lastname;
-	 public $email;
-	 public $type;
-	 //public $password;
-	 //public $remember_token;
-	 
+	 *
 	 public function user() {
 		return $this->hasMany('Assignment');
 	 }
-	 
+	 */
 }

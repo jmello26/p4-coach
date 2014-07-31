@@ -1,6 +1,6 @@
 <?php
 
-class User extends Eloquent {
+class Task extends Eloquent {
 
 	/**
 	 * The database table used by the model.
