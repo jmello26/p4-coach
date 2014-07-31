@@ -37,4 +37,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 //public $password;
 	 //public $remember_token;
 	 
+	 public function user() {
+		return $this->hasMany('Assignment');
+	 }
+	 
 }

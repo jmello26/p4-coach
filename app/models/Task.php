@@ -10,10 +10,14 @@ class User extends Eloquent {
 	protected $table = 'tasks';
 
 	/**
-	 * The attributes excluded from the model's JSON form.
+	 * The attributes of the class.
 	 *
-	 * @var array
+	 * 
 	 */
-	protected $hidden = array('password', 'remember_token');
 
+	 public $id;
+	 public $title;
+	 public $description;
+	 public $file;
+	 public $filename;
 }

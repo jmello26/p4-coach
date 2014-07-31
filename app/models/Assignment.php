@@ -14,6 +14,14 @@ class User extends Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $hidden = array('password', 'remember_token');
+	 public $id;
+	 public $title;
+	 public $description;
+	 public $file;
+	 public $filename;
 
+	 
+	public function assignment() {
+		return $this->belongsTo('User');
+	}
 }
