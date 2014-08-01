@@ -76,16 +76,35 @@ Route::post('/login',
             $credentials = Input::only('username', 'password');
 
             if (Auth::attempt($credentials, $remember = true)) {
-                return Redirect::intended('/home')->with('flash_message', 'Welcome Back!');
+				if (Auth::user()->usertype == 'coach') {
+					return Redirect::to('coach')->with('flash_message', 'Welcome Back Coach!');
+				}
+				else {
+					return Redirect::to('/home')->with('flash_message', 'Welcome Back Client!');
+				}
             }
             else {
                 return Redirect::to('/login')->withInput()->with('flash_message', 'Log in failed; please try again.');
             }
-
-            return Redirect::to('/');
         }
     )
 );
+
+
+
+Route::get('/coach', function() {
+
+	if (Auth::check()) {
+    # Send them to the homepage
+    //return Redirect::to('/home');
+		return View::make('coach');
+	}
+	else {
+		return View::make('login');
+	}
+
+});
+
 
 
 Route::get('/home', function() {
