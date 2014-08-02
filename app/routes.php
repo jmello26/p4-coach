@@ -91,7 +91,6 @@ Route::post('/login',
 );
 
 
-
 Route::get('/coach', function() {
 
 	if (Auth::check()) {
@@ -105,6 +104,63 @@ Route::get('/coach', function() {
 
 });
 
+
+Route::post('/coach/client', 
+    array(
+        'before' => 'csrf', 
+        function() {
+
+            $client = new User;
+			$client->username = Input::get('username');
+			$client->firstname = Input::get('firstname');
+			$client->lastname = Input::get('lastname');
+            $client->email    = Input::get('email');
+            $client->password = Hash::make(Input::get('password'));
+			$client->usertype = 'client';
+
+			
+            # Try to add the user 
+            try {
+                $client->save();
+            }
+            # Fail
+            catch (Exception $e) {
+                return Redirect::to('/coach')->with('flash_message', 'Add client failed; please try again.')->withInput();
+            }
+
+
+            return Redirect::to('/coach')->with('flash_message', 'Client added.');
+
+        }
+    )
+);
+
+
+Route::post('/coach/task', 
+    array(
+        'before' => 'csrf', 
+        function() {
+
+            $task = new Task;
+			$task->title = Input::get('title');
+			$task->description = Input::get('description');
+			$task->filename = Input::get('filename');
+            $task->file    = Input::get('file');
+
+            # Try to add the user 
+            try {
+                $task->save();
+            }
+            # Fail
+            catch (Exception $e) {
+                return Redirect::to('/coach')->with('flash_message', 'Add task failed; please try again.')->withInput();
+            }
+
+            return Redirect::to('/coach')->with('flash_message', 'Task added.');
+
+        }
+    )
+);
 
 
 Route::get('/home', function() {
