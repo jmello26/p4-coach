@@ -15,7 +15,6 @@ class CreateTasksTable extends Migration {
 		Schema::create('tasks', function($table) {
 
 			$table->increments('id');
-			$table->string('name');
 			$table->string('title');
 			$table->text('description');
 			$table->string('filename');
