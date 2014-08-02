@@ -15,10 +15,4 @@ class Task extends Eloquent {
 	 * 
 	 */
 
-	 public $id;
-	 public $title;
-	 public $description;
-	 public $file;
-	 public $filename;
-	 
 }
