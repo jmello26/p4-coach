@@ -41,23 +41,45 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="/">Home</a></li>
-            <!-- <li><a href="#about">About</a></li> -->
-            <!-- <li><a href="#contact">Contact</a></li> -->
+			
+			@if(Auth::check() && Auth::user()->usertype == 'coach')
+				<li class="active"><a href="/coach">Admin</a></li>
+			@elseif (Auth::check() && Auth::user()->usertype == 'client')
+				<li class="active"><a href="/client">Tasks</a></li>
+			@endif
+            
+			<!-- <li><a href="#about">About</a></li> -->
+            <li><a href="/">Contact</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
 			@if(Auth::check())
-				<li><a href='/logout'>Log out {{ Auth::user()->firstname; }} {{ Auth::user()->lastname; }}</a></li>
+				<li class="active"><a href='/logout'>Log out {{ Auth::user()->firstname; }} {{ Auth::user()->lastname; }}</a></li>
+				<!-- <li><button class="btn btn-primary navbar-btn"  data-target="/logout">Log out</button></li> -->
 			@else 
-				<li><a href='/login'>Log in</a></li>
+				<li class="active"><a href='/login'>Log in</a></li>
+				<!-- <li>{{Form::button('Log in', array('class' => 'btn btn-primary navbar-btn', 'onclick' => '/login'));}}</li> -->
+				<!-- <li><button class="btn btn-primary navbar-btn" data-target="/login">Log in</button></li> -->
 				<!-- <li><button class="btn btn-primary btn-md" data-toggle="modal" data-target="#loginModal">Log in</button></li> -->
 			@endif
           </ul>
         </div><!--/.nav-collapse -->
       </div>
 	</div>
-
+	<div class="jumbotron">
+		<div class="container theme-showcase" role="main">
+		@if(Session::get('flash_message'))
+		<div class="container">
+			<div class='flash-message'>
+				<p class="bg-warning">{{ Session::get('flash_message') }}</p>
+			</div>
+		</div>
+		@endif
+		<h1>Life Coach, Inc.</h1>
+		@yield('jumbo')
+		</div>
+	</div>
 	@yield('body')
-
+	
 		<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 			{{ Form::open(array('url' => '/login')) }}

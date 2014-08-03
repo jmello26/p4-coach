@@ -4,14 +4,36 @@
 	Life Coach, Inc.
 @stop
 
-@section('body')
-	<div class="jumbotron">
-		<div class="container theme-showcase" role="main">
-			{{-- Clickable image to bring users back to this page --}}
-			<!-- <a href='/'>{{ HTML::image('/images/p3.png', 'Site Logo'); }}</a> -->
-			<h1>Life Coach, Inc.</h1>
+@section('jumbo')
+	<blockquote>Welcome back! {{Auth::user()->firstname}}  Below are your current tasks.</blockquote>
+@stop
 
-			<blockquote>Welcome back!  Below are your tasks for our next session.</blockquote>
+@section('body')
+	<div class="container">
+		<div class="panel panel-default">
+		<div class="panel-body">
+
+		<h2 id="tables-example">Assignments</h2>
+		<table class="table table-condensed">
+			<tr>
+				<th>Completed</th>
+				<th>Due Date</th>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Attachment</th>
+			</tr>
+			<?php $assignments = Assignment::where('user_id', '=', Auth::user()->id)->get(); ?>
+			@foreach ($assignments as $assignment)
+			<tr>
+				<td>{{$assignment->completed}}</td>
+				<td>{{$assignment->duedate}}</td>
+				<td>{{$assignment->title}}</td>
+				<td>{{$assignment->description}}</td>
+				<td>{{$assignment->filename}}</td>
+			</tr>
+			@endforeach
+		</table>
+		</div>
 		</div>
 	</div>
 @stop

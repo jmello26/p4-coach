@@ -105,6 +105,40 @@ Route::get('/coach', function() {
 });
 
 
+Route::get('/client', function() {
+
+	if (Auth::check()) {
+    # Send them to the homepage
+		return View::make('/home');
+		//return View::make('coach');
+	}
+	else {
+		return View::make('login');
+	}
+
+});
+
+Route::get('/download/{id}', function($id) {
+
+	try {
+		$task = Task::find($id);
+	}
+	catch (Exception $e) {
+		return $e;
+	}
+
+	$mimetype = $task->mimetype;
+	$content = $task->file;
+	//$filename = $task->filename;
+	
+	$response = Response::make($content, 200);
+	$response->header('Content-Type', $mimetype);
+	return $response;
+	
+
+});
+
+
 Route::post('/coach/client', 
     array(
         'before' => 'csrf', 
@@ -142,18 +176,56 @@ Route::post('/coach/task',
         function() {
 
             $task = new Task;
-			$task->title = Input::get('title');
-			$task->description = Input::get('description');
-			$task->filename = Input::get('filename');
-            $task->file    = Input::get('file');
+			$task->title        = Input::get('title');
+			$task->description  = Input::get('description');
+			
+			if (Input::hasFile('file')) {
+				$file 			= Input::file('file');
+				$task->filename = $file->getClientOriginalName();
+				$task->mimetype = $file->getMimeType();
+				$task->size		= $file->getSize();
+				//$task->file     = $file;
+				$task->file     = file_get_contents($file->getRealPath());
 
-            # Try to add the user 
+			}
+
+            # Try to add the task
             try {
                 $task->save();
             }
             # Fail
             catch (Exception $e) {
-                return Redirect::to('/coach')->with('flash_message', 'Add task failed; please try again.')->withInput();
+				//return $e;
+                return Redirect::to('/coach')->with('flash_message', 'Add task failed; please try again.');
+            }
+
+            return Redirect::to('/coach')->with('flash_message', 'Task added.');
+
+        }
+    )
+);
+
+
+
+Route::post('/coach/assign', 
+    array(
+        'before' => 'csrf', 
+        function() {
+
+            $assignment = new Assignment;
+			$assignment->title = Input::get('title');
+			$assignment->description = Input::get('description');
+			$assignment->filename = Input::get('filename');
+            $assignment->file    = Input::get('file');
+
+            # Try to add the task
+            try {
+                $assignment->save();
+            }
+            # Fail
+            catch (Exception $e) {
+				//return $e;
+                return Redirect::to('/coach')->with('flash_message', 'Assignment failed; please try again.');
             }
 
             return Redirect::to('/coach')->with('flash_message', 'Task added.');

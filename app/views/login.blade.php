@@ -6,25 +6,24 @@
 
 @section('body')
 	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-body">
+
 	<!-- /app/views/signup.blade.php -->
-	<div class="jumbotron">
-		<h1>Log in</h1>
+			<h2>Log in</h2>
 
-		{{ Form::open(array('url' => '/login')) }}
+			{{ Form::open(array('url' => '/login')) }}
 
-		Username<br>	
-		{{ Form::text('username') }}<br><br>
+			Username<br>	
+			{{ Form::text('username') }}<br><br>
 
-		Password:<br>
-		{{ Form::password('password') }}<br><br>
+			Password<br>
+			{{ Form::password('password') }}<br><br>
 
-		{{ Form::submit('Submit') }}
+			{{ Form::submit('Submit') }}
 
-		{{ Form::close() }}
+			{{ Form::close() }}
+			</div>
+		</div>
 	</div>
-	</div>
-	@if(Session::get('flash_message'))
-        <div class='flash-message'>{{ Session::get('flash_message') }}</div>
-    @endif
-
 @stop

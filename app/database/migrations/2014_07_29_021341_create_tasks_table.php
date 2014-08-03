@@ -17,11 +17,14 @@ class CreateTasksTable extends Migration {
 			$table->increments('id');
 			$table->string('title');
 			$table->text('description');
-			$table->string('filename');
-			$table->binary('file');
 			$table->timestamps();
-
+			$table->string('filename');
+			$table->string('mimetype');
+			$table->integer('size');
+			
 		});
+		
+		DB::statement("ALTER TABLE tasks ADD file MEDIUMBLOB");
 	}
 
 	/**
