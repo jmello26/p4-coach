@@ -93,9 +93,8 @@ Route::post('/login',
 
 Route::get('/coach', function() {
 
-	if (Auth::check()) {
+	if (Auth::check() && Auth::user()->usertype == 'coach') {
     # Send them to the homepage
-    //return Redirect::to('/home');
 		return View::make('coach');
 	}
 	else {
@@ -107,16 +106,29 @@ Route::get('/coach', function() {
 
 Route::get('/client', function() {
 
-	if (Auth::check()) {
+	if (Auth::check() && Auth::user()->usertype == 'client') {
     # Send them to the homepage
 		return View::make('/home');
-		//return View::make('coach');
 	}
 	else {
 		return View::make('login');
 	}
 
 });
+
+
+Route::get('/assign', function() {
+
+	if (Auth::check() && Auth::user()->usertype == 'coach') {
+    # Send them to the homepage
+		return View::make('/assign');
+	}
+	else {
+		return View::make('login');
+	}
+
+});
+
 
 Route::get('/download/{id}', function($id) {
 
@@ -129,7 +141,6 @@ Route::get('/download/{id}', function($id) {
 
 	$mimetype = $task->mimetype;
 	$content = $task->file;
-	//$filename = $task->filename;
 	
 	$response = Response::make($content, 200);
 	$response->header('Content-Type', $mimetype);
@@ -184,7 +195,6 @@ Route::post('/coach/task',
 				$task->filename = $file->getClientOriginalName();
 				$task->mimetype = $file->getMimeType();
 				$task->size		= $file->getSize();
-				//$task->file     = $file;
 				$task->file     = file_get_contents($file->getRealPath());
 
 			}
@@ -195,7 +205,6 @@ Route::post('/coach/task',
             }
             # Fail
             catch (Exception $e) {
-				//return $e;
                 return Redirect::to('/coach')->with('flash_message', 'Add task failed; please try again.');
             }
 
@@ -224,7 +233,6 @@ Route::post('/coach/assign',
             }
             # Fail
             catch (Exception $e) {
-				//return $e;
                 return Redirect::to('/coach')->with('flash_message', 'Assignment failed; please try again.');
             }
 
@@ -239,7 +247,6 @@ Route::get('/home', function() {
 
 	if (Auth::check()) {
     # Send them to the homepage
-    //return Redirect::to('/home');
 		return View::make('home');
 	}
 	else {
