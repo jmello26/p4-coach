@@ -129,6 +129,19 @@ Route::get('/assign', function() {
 
 });
 
+/*
+Route::post('/assign', function() {
+
+	if (Auth::check() && Auth::user()->usertype == 'coach') {
+    # Send them to the homepage
+		return Redirect::to('/assign')->with('client', Input::get('client'));
+	}
+	else {
+		return View::make('login');
+	}
+
+});
+*/
 
 Route::get('/download/{id}', function($id) {
 
@@ -220,23 +233,34 @@ Route::post('/coach/assign',
     array(
         'before' => 'csrf', 
         function() {
+			//return var_dump(Input::all());
+			
+			$inputs = Input::all();
+			foreach ($inputs as $key => $value) {
+				if (Str::startsWith($key, 'task_id')) {
+					$assignment = new Assignment;
+					//$assignment->title = Input::get('title');
+					$assignment->user_id = Input::get('client');
+					//$assignment->user_id = "1";
+					$assignment->task_id = $value;
+					//$assignment->task_id = "1";
+					//$assignment->description = Input::get('description');
+					$assignment->duedate = Input::get('duedate'.$value);
+					//$assignment->file    = Input::get('file');
 
-            $assignment = new Assignment;
-			$assignment->title = Input::get('title');
-			$assignment->description = Input::get('description');
-			$assignment->filename = Input::get('filename');
-            $assignment->file    = Input::get('file');
-
-            # Try to add the task
-            try {
-                $assignment->save();
-            }
-            # Fail
-            catch (Exception $e) {
-                return Redirect::to('/coach')->with('flash_message', 'Assignment failed; please try again.');
-            }
-
-            return Redirect::to('/coach')->with('flash_message', 'Task added.');
+					# Try to add the task
+					try {
+						$assignment->save();
+					}
+					# Fail
+					catch (Exception $e) {
+						//return $e;
+						return Redirect::to('/assign')->with('flash_message', 'Assignment failed; please try again.'.$e);
+					}
+				
+				}
+			}
+            return Redirect::to('/assign')->with('flash_message', 'Assignments added.');
 
         }
     )

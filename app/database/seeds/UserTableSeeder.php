@@ -14,11 +14,20 @@ class UserTableSeeder extends Seeder {
 		DB::statement('TRUNCATE users');
 
 		$client = new User;
-		$client->username = 'client';
+		$client->username = 'client1';
 		$client->usertype = 'client';
-		$client->firstname = 'Test';
-		$client->lastname = 'Client';
-		$client->email = 'client@no-such-domain.com';
+		$client->firstname = 'Client';
+		$client->lastname = 'One';
+		$client->email = 'client1@no-such-domain.com';
+		$client->password = Hash::make('test');
+		$client->save();
+
+		$client = new User;
+		$client->username = 'client2';
+		$client->usertype = 'client';
+		$client->firstname = 'Client';
+		$client->lastname = 'Two';
+		$client->email = 'client2@no-such-domain.com';
 		$client->password = Hash::make('test');
 		$client->save();
 

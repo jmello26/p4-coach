@@ -6,17 +6,15 @@
 
 @section('jumbo')
 			<blockquote>Welcome back coach!  What would you like to do today?</blockquote>
-			
-			<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#clientModal">+ Add a Client</button>
-			<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#taskModal">+ Add a Task</button>
-			<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#assignmentModal">Assign Tasks</button>
+			<!-- <button class="btn btn-primary btn-md" data-toggle="modal" data-target="#assignmentModal">Assign Tasks</button> -->
+			<a class="btn btn-primary" href="/assign">Assign Tasks to Clients</a>
 @stop
 
 @section('body')
 	<div class="container">
 	<div class="panel panel-default">
 		<div class="panel-body">
-		<h2 id="tables-tasks">Tasks</h2>
+			<h2 id="tables-tasks">Tasks</h2>
 			<table class="table table-condensed">
 				<tr>
 					<th>Title</th>
@@ -32,13 +30,14 @@
 				</tr>
 				@endforeach
 			</table>
+			<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#taskModal">+ Add Task</button>
 		</div>
 	</div>
 	</div>
 	
 	
 	<div class="container">
-	<div class="panel panel-default">
+		<div class="panel panel-default">
 		<div class="panel-body">
 			<h2 id="tables-clients">Clients</h2>
 			<table class="table table-condensed">
@@ -58,6 +57,7 @@
 				</tr>
 				@endforeach
 			</table>
+		<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#clientModal">+ Add Client</button>
 		</div>
 	</div>
 	</div>
@@ -125,34 +125,6 @@
 	</div><!-- /.modal -->
 
 
-	<div class="modal fade" id="assignmentModal" tabindex="-1" role="dialog" aria-labelledby="Assign Tasks" aria-hidden="true">
-		<div class="modal-dialog">
-		{{ Form::open(array('url' => '/assign')) }}
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-					<h4 class="modal-title">Add Task</h4>
-				</div>
-				<div class="modal-body">
-					Title<br>	
-					{{ Form::text('title') }}<br><br>
 
-					Description:<br>
-					{{ Form::textarea('description') }}<br><br>
-					<!--
-					Filename:<br>
-					{{ Form::text('filename') }}<br><br>
-					-->
-					File:<br>
-					{{ Form::file('file') }}<br><br>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					{{ Form::submit('Add', array('class' => 'btn btn-primary')) }}
-				</div>
-			</div><!-- /.modal-content -->
-		{{ Form::close() }}
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
 	
 @stop

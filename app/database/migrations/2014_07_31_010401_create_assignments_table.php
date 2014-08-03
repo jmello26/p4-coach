@@ -17,10 +17,9 @@ class CreateAssignmentsTable extends Migration {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->integer('task_id')->unsigned();
-			$table->string('name');
 			$table->string('title');
 			$table->text('description');
-			$table->timestamp('duedate');
+			$table->date('duedate');
 			$table->boolean('complete');
 			$table->string('filename');
 			$table->binary('file');

@@ -15,7 +15,7 @@ class Assignment extends Eloquent {
 	 * @var array
 	 */
 	 
-	public function assignment() {
-		return $this->belongsTo('User');
-	}
+	//public function assignment() {
+	//	return $this->belongsTo('User');
+	//}
 }
