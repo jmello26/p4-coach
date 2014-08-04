@@ -11,6 +11,7 @@
 @section('body')
 	<div class="container">
 		{{ Form::open(array('url' => '/coach/assign', 'class' => 'form-inline')) }}
+
 		<div class="panel panel-default">
 		<div class="panel-body">
 
@@ -22,7 +23,7 @@
 			}
 			?>
 			{{Form::label('client', 'Select a client');}}
-			{{Form::select('client', $client_array,'', array('class' => 'form-control'));}}
+			{{Form::select('client', $client_array, '', array('class' => 'form-control'));}}
 		</div>
 		</div>
 		
@@ -49,6 +50,7 @@
 				@endforeach
 			</table>
 			{{Form::submit('Assign', array('class' => 'btn btn-primary'));}}
+		{{ Form::close(); }}
 
 		<br>
 <!--		<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#assignmentModal">Assign Tasks</button>		-->
@@ -56,16 +58,17 @@
 		<h2 id="table-assignments">Current Assignments</h2>
 		<table class="table table-condensed">
 			<tr>
-				<th>Completed</th>
+				<th>Complete</th>
 				<th>Due Date</th>
 				<th>Title</th>
 				<th>Description</th>
 				<th>Attachment</th>
 			</tr>
-			<?php $assignments = Assignment::where('user_id', '=', Input::old('client'))->get(); ?>
+			<!-- Input::get('client') -->
+			<?php $assignments = Assignment::where('user_id', '=', Session::get('flash_message'))->get(); ?>
 			@foreach ($assignments as $assignment)
 			<tr>
-				<td>{{$assignment->completed}}</td>
+				<td>{{$assignment->complete}}</td>
 				<td>{{$assignment->duedate}}</td>
 				<td>{{$assignment->title}}</td>
 				<td>{{$assignment->description}}</td>
@@ -75,9 +78,8 @@
 		</table>
 		</div>
 		</div>
-		{{ Form::close(); }}
 	</div>
-
+<!--
 		<div class="modal fade" id="assignmentModal" tabindex="-1" role="dialog" aria-labelledby="Assign Tasks" aria-hidden="true">
 		<div class="modal-dialog">
 		{{ Form::open(array('url' => '/coach/assign')) }}
@@ -104,24 +106,14 @@
 						</tr>
 						@endforeach
 					</table>
-
-					<!--
-					{{Form::hidden('client_id', Input::get('client'));}}
-					Title<br>	
-					{{ Form::text('title') }}<br><br>
-
-					Description:<br>
-					{{ Form::textarea('description') }}<br><br>
-					File:<br>
-					{{ Form::file('file') }}<br><br>
-					-->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 					{{ Form::submit('Add', array('class' => 'btn btn-primary')) }}
 				</div>
-			</div><!-- /.modal-content -->
+			</div><!-- /.modal-content - ->
 		{{ Form::close() }}
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
+		</div><!-- /.modal-dialog - ->
+	</div><!- - /.modal - ->
+-->
 @stop
