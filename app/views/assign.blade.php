@@ -23,14 +23,37 @@
 			}
 			?>
 			{{Form::label('client', 'Select a client');}}
-			{{Form::select('client', $client_array, '', array('class' => 'form-control'));}}
+			{{Form::select('client', $client_array, Session::get('client_id'), array('class' => 'form-control'));}}
+			{{Form::submit('Select', array('class' => 'btn btn-primary'));}}
+			
+			<h3 id="table-assignments">Current Assignments</h3>
+			<table class="table table-condensed">
+				<tr>
+					<th>Complete</th>
+					<th>Due Date</th>
+					<th>Title</th>
+					<th>Description</th>
+					<th>Attachment</th>
+				</tr>
+				<!-- Input::get('client') -->
+				<?php $assignments = Assignment::where('user_id', '=', Session::get('client_id'))->get(); ?>
+				@foreach ($assignments as $assignment)
+				<tr>
+					<td><?php if ($assignment->complete == 1) { echo "<span class='glyphicon glyphicon-ok'></span>";} ?></td>
+					<td>{{$assignment->duedate}}</td>
+					<td>{{$assignment->title}}</td>
+					<td>{{$assignment->description}}</td>
+					<td>{{$assignment->filename}}</td>
+				</tr>
+				@endforeach
+			</table>
 		</div>
 		</div>
 		
 		<div class="panel panel-default">
 		<div class="panel-body">
 			
-		<h2 id="table-tasks">Available Tasks</h2>
+		<h3 id="table-tasks">Available Tasks</h3>
 
 			<table class="table table-condensed">
 				<tr>
@@ -43,39 +66,19 @@
 				@foreach ($tasks as $task)
 				<tr>
 					<td>{{Form::checkbox('task_id'.$task->id, $task->id);}}</td>
+<!--					<td>{{Form::checkbox('task_id[]', $task->id);}}</td> -->
 					<td>{{$task->title}}</td>
 					<td>{{$task->description}}</td>
 					<td><input type="date" class="form-control" name="duedate{{$task->id}}" placeholder="Due date"></td>
 				</tr>
 				@endforeach
 			</table>
-			{{Form::submit('Assign', array('class' => 'btn btn-primary'));}}
+			<p>Assign selected tasks to client: {{Form::submit('Assign', array('class' => 'btn btn-primary'));}} </p>
 		{{ Form::close(); }}
 
 		<br>
 <!--		<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#assignmentModal">Assign Tasks</button>		-->
 		
-		<h2 id="table-assignments">Current Assignments</h2>
-		<table class="table table-condensed">
-			<tr>
-				<th>Complete</th>
-				<th>Due Date</th>
-				<th>Title</th>
-				<th>Description</th>
-				<th>Attachment</th>
-			</tr>
-			<!-- Input::get('client') -->
-			<?php $assignments = Assignment::where('user_id', '=', Session::get('flash_message'))->get(); ?>
-			@foreach ($assignments as $assignment)
-			<tr>
-				<td>{{$assignment->complete}}</td>
-				<td>{{$assignment->duedate}}</td>
-				<td>{{$assignment->title}}</td>
-				<td>{{$assignment->description}}</td>
-				<td>{{$assignment->filename}}</td>
-			</tr>
-			@endforeach
-		</table>
 		</div>
 		</div>
 	</div>

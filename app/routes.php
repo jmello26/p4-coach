@@ -234,6 +234,9 @@ Route::post('/coach/assign',
         function() {
 			$inputs = Input::all();
 			foreach ($inputs as $key => $value) {
+//				if (Str::startsWith($key, 'task_id')) {
+			//$inputs = Input::get('task_id');
+//			foreach ($inputs as $value) {
 				if (Str::startsWith($key, 'task_id')) {
 					try {
 						$task = Task::findOrFail($value);
@@ -258,7 +261,8 @@ Route::post('/coach/assign',
 				
 				}
 			}
-            return Redirect::to('/assign')->withInput()->with('flash_message', Input::get('client'));
+			Session::put('client_id', Input::get('client'));
+            return Redirect::to('/assign')->with('client', Input::get('client'));
 
         }
     )
