@@ -26,12 +26,13 @@
 			<?php $assignments = Assignment::where('user_id', '=', Auth::user()->id)->get(); ?>
 			@foreach ($assignments as $assignment)
 			<tr>
-				<td>{{Form::checkbox('complete'.$assignment->id, $assignment->complete);}}</td>
+				<td>{{Form::checkbox('complete[]', $assignment->id,($assignment->complete==1)?true:false) ;}}</td>
+				<!-- <td>{{Form::checkbox('complete'.$assignment->id, $assignment->complete, ($assignment->complete==1)?true:false);}}</td> -->
 				<td>{{$assignment->duedate}}</td>
 				<td>{{$assignment->title}}</td>
 				<td>{{$assignment->description}}</td>
 				<td><a href='/download/{{$assignment->task_id}}'>{{$assignment->filename}}</a></td>
-				<!-- <td>{{$assignment->filename}}{{Form::hidden('assign_id',$assignment->id);}}</td> -->
+				<td>{{Form::hidden('assign_id'.$assignment->id, $assignment->id) ;}}</td>
 			</tr>
 			@endforeach
 		</table>

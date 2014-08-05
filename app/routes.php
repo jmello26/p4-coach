@@ -243,8 +243,8 @@ Route::post('/coach/assign',
 						$assignment->task_id = $value;
 						$assignment->description = $task->description;
 						$assignment->filename = $task->filename;
+						$assignment->complete = false;
 						$assignment->duedate = Input::get('duedate'.$value);
-						//$assignment->file    = Input::get('file');
 
 						# Try to add the task
 
@@ -270,32 +270,31 @@ Route::post('/client/assign',
         'before' => 'csrf', 
         function() {
 			$inputs = Input::all();
+			$completes = Input::get('complete');
 			foreach ($inputs as $key => $value) {
 				if (Str::startsWith($key, 'assign_id')) {
 					try {
 						$assignment = Assignment::findOrFail($value);
-					//$assignment = new Assignment;
-						$assignment->complete = Input::get('complete'.$value);
-					//$assignment->user_id = Input::get('client');
-					//$assignment->task_id = $value;
-					//$assignment->description = $task->description;
-					//$assignment->duedate = Input::get('duedate'.$value);
-					//$assignment->file    = Input::get('file');
+						foreach ($completes as $complete) {
+							if ($value == $complete) {
+								$assignment->complete = true;
+								break;
+							}
+							else {
+								$assignment->complete = false;
+							}
+						}
 
-					# Try to add the task
-
+						# Try to save the assignment
 						$assignment->save();
 					}
 					# Fail
 					catch (Exception $e) {
-						//return $e;
 						return Redirect::to('/home')->with('flash_message', 'Update failed; please try again.'.$e);
-					}
-				
+					}	
 				}
 			}
-            return Redirect::to('/home')->withInput()->with('flash_message', '');
-
+			return Redirect::to('/home')->withInput()->with('flash_message', 'Tasks updated.');
         }
     )
 );
