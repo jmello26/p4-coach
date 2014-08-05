@@ -23,7 +23,7 @@
 				<th>Description</th>
 				<th>Attachment</th>
 			</tr>
-			<?php $assignments = Assignment::where('user_id', '=', Auth::user()->id)->get(); ?>
+			<?php $assignments = Assignment::where('user_id', '=', Auth::user()->id)->orderby('duedate')->get(); ?>
 			@foreach ($assignments as $assignment)
 			<tr>
 				<td>{{Form::checkbox('complete[]', $assignment->id,($assignment->complete==1)?true:false) ;}}</td>
