@@ -26,7 +26,7 @@
 				<tr>
 					<td>{{$task->title}}</td>
 					<td>{{$task->description}}</td>
-					<td><a href='/download/{{$task->id}}'>{{$task->filename}}</a></td>
+					<td><a href='/file/{{$task->id}}'>{{$task->filename}}</a></td>
 				</tr>
 				@endforeach
 			</table>

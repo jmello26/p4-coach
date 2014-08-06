@@ -12,7 +12,7 @@
 	<div class="container">
 		<div class="panel panel-default">
 		<div class="panel-body">
-		{{ Form::open(array('url' => '/client/assign', 'class' => 'form-inline')) }}
+		{{ Form::open(array('url' => '/client/update', 'class' => 'form-inline')) }}
 
 		<h2 id="tables-example">Tasks</h2>
 		<table class="table table-condensed">
@@ -31,12 +31,12 @@
 				<td>{{$assignment->duedate}}</td>
 				<td>{{$assignment->title}}</td>
 				<td>{{$assignment->description}}</td>
-				<td><a href='/download/{{$assignment->task_id}}'>{{$assignment->filename}}</a></td>
+				<td><a href='/file/{{$assignment->task_id}}'>{{$assignment->filename}}</a></td>
 				<td>{{Form::hidden('assign_id'.$assignment->id, $assignment->id) ;}}</td>
 			</tr>
 			@endforeach
 		</table>
-		{{Form::submit('Update', array('class' => 'btn btn-primary'));}}
+		{{ Form::submit('Update', array('class' => 'btn btn-primary')); }}
 		{{ Form::close(); }}
 		</div>
 		</div>
