@@ -5,8 +5,7 @@
 @stop
 
 @section('jumbo')
-			<blockquote>Welcome back coach!  What would you like to do today?</blockquote>
-			<!-- <button class="btn btn-primary btn-md" data-toggle="modal" data-target="#assignmentModal">Assign Tasks</button> -->
+			<blockquote>Welcome back {{Auth::user()->firstname}}!  What would you like to do today?</blockquote>
 			<a class="btn btn-primary" href="/assign">Assign Tasks to Clients</a>
 @stop
 
@@ -14,7 +13,7 @@
 	<div class="container">
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<h2 id="tables-tasks">Tasks</h2>
+			<h3 id="tables-tasks">Task Library</h3>
 			<table class="table table-condensed">
 				<tr>
 					<th>Title</th>
@@ -39,7 +38,7 @@
 	<div class="container">
 		<div class="panel panel-default">
 		<div class="panel-body">
-			<h2 id="tables-clients">Clients</h2>
+			<h3 id="tables-clients">Clients</h3>
 			<table class="table table-condensed">
 				<tr>
 					<th>First Name</th>
@@ -108,10 +107,7 @@
 
 					Description<br>
 					{{ Form::textarea('description') }}<br><br>
-					<!--
-					Filename:<br>
-					{{ Form::text('filename') }}<br><br>
-					-->
+
 					File<br>
 					{{ Form::file('file') }}<br><br>
 				</div>

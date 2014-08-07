@@ -8,14 +8,5 @@ class Assignment extends Eloquent {
 	 * @var string
 	 */
 	protected $table = 'assignments';
-
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	 
-	//public function assignment() {
-	//	return $this->belongsTo('User');
-	//}
+	
 }

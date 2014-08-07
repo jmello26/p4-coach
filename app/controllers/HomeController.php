@@ -11,22 +11,42 @@ class HomeController extends BaseController {
 	| based routes. That's great! Here is an example controller method to
 	| get you started. To route to this controller, just add the route:
 	|
-	|	Route::get('/', 'HomeController@showWelcome');
+	|	Route::get('/', 'HomeController@getLogin');
 	|
 	*/
 
+	/*
+	|--------------------------------------------------------------------------
+	| Home Controller
+	|--------------------------------------------------------------------------
+	|
+	|	Display the Login page
+	|
+	|	Route::get('/login', 'HomeController@getLogin');
+	|
+	*/
 	public function getLogin() {
 		return View::make('login');
 	}
 
 	
 	
+	/*
+	|--------------------------------------------------------------------------
+	| Home Controller
+	|--------------------------------------------------------------------------
+	|
+	|	Process Login credentials
+	|
+	|	Route::post('/login', 'HomeController@postLogin');
+	|
+	*/
 	public function postLogin()	{
 		$credentials = Input::only('username', 'password');
 
 		if (Auth::attempt($credentials, $remember = true)) {
 			if (Auth::user()->usertype == 'coach') {
-				return Redirect::to('coach')->with('flash_message', 'Welcome Back Coach!');
+				return Redirect::to('/coach')->with('flash_message', 'Welcome Back Coach!');
 			}
 			else {
 				return Redirect::to('/home')->with('flash_message', 'Welcome Back Client!');
@@ -37,7 +57,16 @@ class HomeController extends BaseController {
 		}
 	}
 
-
+	/*
+	|--------------------------------------------------------------------------
+	| Home Controller
+	|--------------------------------------------------------------------------
+	|
+	|	Display the Home page for authenticated clients
+	|
+	|	Route::get('/client', 'HomeController@getClient');
+	|
+	*/
 	public function getClient() {
 		if (Auth::check() && Auth::user()->usertype == 'client') {
 		# Send them to the homepage
@@ -49,6 +78,16 @@ class HomeController extends BaseController {
 	}
 
 	
+	/*
+	|--------------------------------------------------------------------------
+	| Home Controller
+	|--------------------------------------------------------------------------
+	|
+	|	Display the Coach Admin page for authenticated coaches
+	|
+	|	Route::get('/coach', 'HomeController@getCoach');
+	|
+	*/
 	public function getCoach() {
 		if (Auth::check() && Auth::user()->usertype == 'coach') {
 		# Send them to the homepage
@@ -60,6 +99,16 @@ class HomeController extends BaseController {
 	}	
 
 	
+	/*
+	|--------------------------------------------------------------------------
+	| Home Controller
+	|--------------------------------------------------------------------------
+	|
+	|	Download a file attachment for a Task
+	|
+	|	Route::get('/file/{id}', 'HomeController@getFile');
+	|
+	*/
 	public function getFile($id) {
 		try {
 			$task = Task::find($id);
@@ -77,6 +126,16 @@ class HomeController extends BaseController {
 	}	
 
 
+	/*
+	|--------------------------------------------------------------------------
+	| Home Controller
+	|--------------------------------------------------------------------------
+	|
+	|	Display the Home page for authenticated clients
+	|
+	|	Route::get('/home', 'HomeController@getHome');
+	|
+	*/
 	public function getHome() {
 		if (Auth::check()) {
 		# Send them to the homepage
@@ -88,6 +147,16 @@ class HomeController extends BaseController {
 	}	
 
 
+	/*
+	|--------------------------------------------------------------------------
+	| Home Controller
+	|--------------------------------------------------------------------------
+	|
+	|	Display the Home page for authenticated clients
+	|
+	|	Route::get('/logout', 'HomeController@getLogout');
+	|
+	*/
 	public function getLogout() {
 		# Log out
 		Auth::logout();
@@ -97,6 +166,16 @@ class HomeController extends BaseController {
 	}	
 	
 	
+	/*
+	|--------------------------------------------------------------------------
+	| Home Controller
+	|--------------------------------------------------------------------------
+	|
+	|	Process updates to tasks made by Clients
+	|
+	|	Route::post('/update', 'HomeController@postUpdate');
+	|
+	*/
 	public function postUpdate() {
 		$inputs = Input::all();
 		$completes = Input::get('complete');

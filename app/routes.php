@@ -17,28 +17,40 @@ Route::get('/', function()
 });
 
 
+/* Display login page */
 Route::get('/login', 'HomeController@getLogin');
 
+/* Post login credentials */
 Route::post('/login', 'HomeController@postLogin');
 
+/* Display the coach's Admin page */
 Route::get('/coach', 'HomeController@getCoach');
 
+/* Display the client's Tasks page */
 Route::get('/client', 'HomeController@getClient');
 
+/* Post task updates from a client */
 Route::post('/client/update', 'HomeController@postUpdate');
 
+/* Display the client's Home page */
 Route::get('/home', 'HomeController@getHome');
 
+/* Log out */
 Route::get('/logout', 'HomeController@getLogout');
 
+/* Download the file associated with a Task*/
 Route::get('/file/{id}', 'HomeController@getFile');
 
+/* Show the Assignment page to coaches */
 Route::get('/assign', 'CoachController@getAssignment');
 
+/* Add a client */
 Route::post('/coach/client', 'CoachController@postClient');
 
+/* Add a task to the Task Library */
 Route::post('/coach/task', 'CoachController@postTask');
 
+/* Assign tasks to a client */
 Route::post('/coach/assign', 'CoachController@postAssignment');
 
 

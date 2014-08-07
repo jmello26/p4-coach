@@ -8,9 +8,7 @@ class CoachController extends BaseController {
 	| Coach Controller
 	|--------------------------------------------------------------------------
 	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
+	|	Display the Assignment page
 	|
 	|	Route::get('/assign', 'CoachController@getAssignment');
 	|
@@ -33,9 +31,7 @@ class CoachController extends BaseController {
 	| Coach Controller
 	|--------------------------------------------------------------------------
 	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
+	|	Adds a new Client user
 	|
 	|	Route::post('/coach/client', 'CoachController@postClient');
 	|
@@ -60,6 +56,7 @@ class CoachController extends BaseController {
 			return Redirect::to('/coach')->with('flash_message', 'Add client failed; please try again.')->withInput();
 		}
 
+		# redisplay the page showing the added Client
 		return Redirect::to('/coach')->with('flash_message', 'Client added.');
 
 	}
@@ -70,9 +67,7 @@ class CoachController extends BaseController {
 	| Coach Controller
 	|--------------------------------------------------------------------------
 	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
+	|	Add a task to the Task Library
 	|
 	|	Route::post('/coach/task', 'CoachController@postTask');
 	|
@@ -82,7 +77,8 @@ class CoachController extends BaseController {
 		$task = new Task;
 		$task->title        = Input::get('title');
 		$task->description  = Input::get('description');
-		
+
+		# set additional properties if a file has been uploaded
 		if (Input::hasFile('file')) {
 			$file 			= Input::file('file');
 			$task->filename = $file->getClientOriginalName();
@@ -101,6 +97,7 @@ class CoachController extends BaseController {
 			return Redirect::to('/coach')->with('flash_message', 'Add task failed; please try again.');
 		}
 
+		# redisplay the page showing the added Task
 		return Redirect::to('/coach')->with('flash_message', 'Task added.');
 	}
 
@@ -111,9 +108,7 @@ class CoachController extends BaseController {
 	| Coach Controller
 	|--------------------------------------------------------------------------
 	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
+	| Creates an assignment of selected tasks to the selected client
 	|
 	|	Route::post('/coach/assign', 'CoachController@postAssignment');
 	|
@@ -126,7 +121,10 @@ class CoachController extends BaseController {
 		foreach ($inputs as $key => $value) {
 			if (Str::startsWith($key, 'task_id')) {
 				try {
+					# open task from db
 					$task = Task::findOrFail($value);
+	
+					# create a new Assignment
 					$assignment = new Assignment;
 					$assignment->title = $task->title;
 					$assignment->user_id = Input::get('client');
@@ -136,7 +134,7 @@ class CoachController extends BaseController {
 					$assignment->complete = false;
 					$assignment->duedate = Input::get('duedate'.$value);
 
-					# Try to add the task
+					# save the assignment
 					$assignment->save();
 				}
 				# Fail
@@ -147,6 +145,8 @@ class CoachController extends BaseController {
 			}
 		}
 		Session::put('client_id', Input::get('client'));
+		
+		# redisplay the page showing updates
 		return Redirect::to('/assign')->with('client', Input::get('client'));
 
 	}

@@ -24,13 +24,4 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	protected $hidden = array('password', 'remember_token');
 	protected $guarded = array('id', 'created_at', 'updated_at');
 	
-	/**
-	 *
-	 * The relationship between a User and their Assignments
-	 *
-	 *
-	 public function user() {
-		return $this->hasMany('Assignment');
-	 }
-	 */
 }

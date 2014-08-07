@@ -27,7 +27,6 @@
 			@foreach ($assignments as $assignment)
 			<tr>
 				<td>{{Form::checkbox('complete[]', $assignment->id,($assignment->complete==1)?true:false) ;}}</td>
-				<!-- <td>{{Form::checkbox('complete'.$assignment->id, $assignment->complete, ($assignment->complete==1)?true:false);}}</td> -->
 				<td>{{$assignment->duedate}}</td>
 				<td>{{$assignment->title}}</td>
 				<td>{{$assignment->description}}</td>

@@ -66,7 +66,6 @@
 				@foreach ($tasks as $task)
 				<tr>
 					<td>{{Form::checkbox('task_id'.$task->id, $task->id);}}</td>
-<!--					<td>{{Form::checkbox('task_id[]', $task->id);}}</td> -->
 					<td>{{$task->title}}</td>
 					<td>{{$task->description}}</td>
 					<td><input type="date" class="form-control" name="duedate{{$task->id}}" placeholder="Due date"></td>
@@ -76,47 +75,8 @@
 			<p>Assign selected tasks to client: {{Form::submit('Assign', array('class' => 'btn btn-primary'));}} </p>
 		{{ Form::close(); }}
 
-		<br>
-<!--		<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#assignmentModal">Assign Tasks</button>		-->
-		
+		<br>		
 		</div>
 		</div>
 	</div>
-<!--
-		<div class="modal fade" id="assignmentModal" tabindex="-1" role="dialog" aria-labelledby="Assign Tasks" aria-hidden="true">
-		<div class="modal-dialog">
-		{{ Form::open(array('url' => '/coach/assign')) }}
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-					<h4 class="modal-title">Assign Tasks</h4>
-				</div>
-				<div class="modal-body">
-					<table class="table table-condensed">
-						<tr>
-							<th>Select</th>
-							<th>Title</th>
-							<th>Description</th>
-							<th>Due Date</th>
-						</tr>
-						<?php $tasks = Task::all(); ?>
-						@foreach ($tasks as $task)
-						<tr>
-							<td>{{Form::checkbox('task_id'.$task->id, $task->id);}}</td>
-							<td>{{$task->title}}</td>
-							<td>{{$task->description}}</td>
-							<td><input type="date" class="form-control" name="duedate{{$task->id}}" placeholder="Due date"></td>
-						</tr>
-						@endforeach
-					</table>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					{{ Form::submit('Add', array('class' => 'btn btn-primary')) }}
-				</div>
-			</div><!-- /.modal-content - ->
-		{{ Form::close() }}
-		</div><!-- /.modal-dialog - ->
-	</div><!- - /.modal - ->
--->
 @stop

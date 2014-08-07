@@ -36,7 +36,6 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <!-- <a class="navbar-brand" href="#"></a> -->
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -47,19 +46,12 @@
 			@elseif (Auth::check() && Auth::user()->usertype == 'client')
 				<li class="active"><a href="/client">Tasks</a></li>
 			@endif
-            
-			<!-- <li><a href="#about">About</a></li> -->
-            <li><a href="/">Contact</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
 			@if(Auth::check())
 				<li class="active"><a href='/logout'>Log out {{ Auth::user()->firstname; }} {{ Auth::user()->lastname; }}</a></li>
-				<!-- <li><button class="btn btn-primary navbar-btn"  data-target="/logout">Log out</button></li> -->
 			@else 
 				<li class="active"><a href='/login'>Log in</a></li>
-				<!-- <li>{{Form::button('Log in', array('class' => 'btn btn-primary navbar-btn', 'onclick' => '/login'));}}</li> -->
-				<!-- <li><button class="btn btn-primary navbar-btn" data-target="/login">Log in</button></li> -->
-				<!-- <li><button class="btn btn-primary btn-md" data-toggle="modal" data-target="#loginModal">Log in</button></li> -->
 			@endif
           </ul>
         </div><!--/.nav-collapse -->
@@ -79,7 +71,7 @@
 		</div>
 	</div>
 	@yield('body')
-	
+	<!--
 		<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 			{{ Form::open(array('url' => '/login')) }}
@@ -99,10 +91,11 @@
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						{{ Form::submit('Log in', array('class' => 'btn btn-primary')) }}
 					</div>
-				</div><!-- /.modal-content -->
+				</div><!-- /.modal-content - ->
 			{{ Form::close() }}
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
+			</div><!-- /.modal-dialog - ->
+		</div><!-- /.modal - ->
+	-->
 
 	
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
