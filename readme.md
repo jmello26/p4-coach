@@ -9,10 +9,25 @@ A site for a life coaching business to provide clients and coaches with a way to
 This site uses the Laravel framework.
 
 ## Details for teaching team
-Login for a coach user: 	coach/test
-Login for a client user: 	client/test
+Login for the coach (username/pwd): 		coach/test
+Login for the client users (username/pwd): 	client1/test
+											client2/test
 
 ## Outside code
 This application uses the following packages:
 	Bootstrap for UI (http://getbootstrap.com/)
+	
+## Features
+
+For Coaches:
+	1. On the Admin page (link in the header), coaches can:
+			a. View the Task Library and add new Tasks to the Task Library
+			b. View the list of Clients, and add new clients to the system
+			c. Assign tasks from the Task Library to Clients
+	
+For Clients:
+	1. On the Tasks page (link in the header), clients can:
+			a. View a list of assigned Tasks
+			b. Download files attached to a task
+			c. Mark a task as Complete
 	
